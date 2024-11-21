@@ -8,7 +8,7 @@
    <children>
       <Pane layoutY="-6.0" prefHeight="106.0" prefWidth="370.0" style="-fx-border-color: black;">
          <children>
-            <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Добавить инструкцию" />
+            <Button layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#addInstruction" prefHeight="25.0" prefWidth="142.0" text="Добавить инструкцию" />
             <Button layoutX="157.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="207.0" text="Сбросить выполнение программы" />
             <Button layoutX="70.0" layoutY="53.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="222.0" text="Выполнить очередную инструкцию" />
          </children></Pane>
@@ -34,7 +34,7 @@
          </children></Pane>
       <ScrollPane layoutY="100.0" prefHeight="300.0" prefWidth="370.0" style="-fx-border-color: black;">
          <content>
-            <GridPane prefHeight="47.0" prefWidth="366.0">
+            <GridPane fx:id="allInstructions" prefHeight="47.0" prefWidth="366.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
