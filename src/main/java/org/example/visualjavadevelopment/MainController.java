@@ -19,6 +19,7 @@ public class MainController {
     protected void addInstruction() {
         AddController ad = new AddController();
         FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("addInst.fxml"));
+        ad.setAllInstructions(allInstructions);
         fxmlLoader.setController(ad);
         try {
             Pane pane = fxmlLoader.load();
@@ -26,7 +27,6 @@ public class MainController {
             stage.setTitle("Add Instruction");
             stage.setScene(new Scene(pane));
 
-            // Отображаем новое окно
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
