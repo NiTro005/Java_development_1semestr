@@ -13,8 +13,21 @@ public class InstructionController {
 
     private Instruction instruction;
 
-    public void setInst(String str){
-        inst.setText(str);
+    public void setInst(Instruction instruction, String inst, String first_argument, String second_argument) {
+        this.instruction = instruction;
+        this.inst.setText(inst);
+        if (first_argument != null) {
+            this.first_argument.setText(first_argument);
+        }
+        if (second_argument != null) {
+            this.second_argument.setText(second_argument);
+        }
     }
+
+    @FXML
+    protected void deleteInstruction(){
+
+    }
+
 
 }

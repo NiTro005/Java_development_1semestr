@@ -10,8 +10,8 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 import javafx.stage.Stage;
-import  org.example.visualjavadevelopment.AllRegisters;
-import  org.example.visualjavadevelopment.Command;
+import  org.example.visualjavadevelopment.AllRegisters.*;
+import  org.example.visualjavadevelopment.Command.*;
 
 public class AddController {
     @FXML
@@ -30,19 +30,24 @@ public class AddController {
     @FXML
     protected void addNewInstruction(){
         InstructionController in = new InstructionController();
+        Instruction instruction = null;
         boolean found = false;
         String s = inst.getText();
+        Command instr = null;
+        AllRegisters reg1 = null;
+        AllRegisters reg2 = null;
         for(Command r: Command.values()){
             if(r.name().equals(s)){
                 found = true;
+                instr = r;
                 break;
             }
         }
         if(!found) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
-            alert.setHeaderText(" ");
-            alert.setContentText(" ");
+            alert.setHeaderText("Добавление отклонено");
+            alert.setContentText("Такой инструкции не существует");
             alert.showAndWait();
 
             Stage stage = (Stage) inst.getScene().getWindow();
@@ -57,7 +62,27 @@ public class AddController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        in.setInst(inst.getText());
+        switch (instr){
+            case add, sub, div, mult, print:
+                instruction = new Instruction(instr);
+                in.setInst(instruction, s, null, null);
+                break;
+            case init:
+                instruction = new Instruction(instr, Integer.parseInt(first.getText()),  Integer.parseInt(second.getText()));
+                in.setInst(instruction, s, first.getText(), second.getText());
+                break;
+            case mv:
+                reg1 = AllRegisters.valueOf(first.getText());
+                reg2 = AllRegisters.valueOf(second.getText());
+                instruction = new Instruction(instr, reg1,  reg2);
+                in.setInst(instruction, s, first.getText(), second.getText());
+                break;
+            case ld, st:
+                reg1 = AllRegisters.valueOf(first.getText());
+                instruction = new Instruction(instr, reg1,  Integer.parseInt(second.getText()));
+                in.setInst(instruction, s, first.getText(), second.getText());
+                break;
+        }
         Stage stage = (Stage) inst.getScene().getWindow();
         stage.close();
     }
