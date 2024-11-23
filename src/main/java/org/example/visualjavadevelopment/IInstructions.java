@@ -8,4 +8,5 @@ public interface IInstructions {
     Command mostOftenInstruction();
     Map<Integer, Integer> AddressMemory();
     List<Command> InstructionsList();
+    void setInstructions(Instruction inst);
 }

@@ -28,10 +28,14 @@ public class CPU implements IComonCPU {
         _registers[index] = value;
     }
 
-    @Override
-    public void exec(Instruction inst) throws Exception {
+    public void setInstructions(Instruction inst) {
         instructions.add(inst);
-        compilator.exec(inst, this);
+    }
+
+    @Override
+    public void exec() throws Exception {
+        for(Instruction i : instructions)
+        compilator.exec(i, this);
     }
 
     @Override

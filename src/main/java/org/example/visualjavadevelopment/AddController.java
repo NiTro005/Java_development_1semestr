@@ -23,6 +23,9 @@ public class AddController {
     @FXML
     private TextField second;
 
+    IComonCPU cpu = BCPU.build();
+    public  void setCpu(IComonCPU cpu){this.cpu = cpu;}
+
     public void setAllInstructions(GridPane allInstructions) {
         this.allInstructions = allInstructions;
     }
@@ -83,6 +86,7 @@ public class AddController {
                 in.setInst(instruction, s, first.getText(), second.getText());
                 break;
         }
+        cpu.setInstructions(instruction);
         Stage stage = (Stage) inst.getScene().getWindow();
         stage.close();
     }

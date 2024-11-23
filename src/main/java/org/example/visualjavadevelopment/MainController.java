@@ -12,6 +12,8 @@ import java.io.IOException;
 
 
 public class MainController {
+    IComonCPU cpu = BCPU.build();
+
     @FXML
     GridPane allInstructions;
 
@@ -20,17 +22,21 @@ public class MainController {
         AddController ad = new AddController();
         FXMLLoader fxmlLoader = new FXMLLoader(MainController.class.getResource("addInst.fxml"));
         ad.setAllInstructions(allInstructions);
+        ad.setCpu(cpu);
         fxmlLoader.setController(ad);
         try {
             Pane pane = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Add Instruction");
             stage.setScene(new Scene(pane));
-
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    protected  void executeInstruction(){
 
     }
 }
