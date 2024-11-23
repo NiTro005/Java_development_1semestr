@@ -2,5 +2,5 @@ package org.example.visualjavadevelopment;
 
 
 public interface ICPU {
-    void exec() throws Exception;
+    void exec(int index) throws Exception;
 }

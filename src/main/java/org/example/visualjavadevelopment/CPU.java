@@ -33,9 +33,9 @@ public class CPU implements IComonCPU {
     }
 
     @Override
-    public void exec() throws Exception {
-        for(Instruction i : instructions)
-        compilator.exec(i, this);
+    public void exec(int index) throws Exception {
+        if(!instructions.isEmpty()) compilator.exec(instructions.get(index), this);
+        else throw new Exception("Нет доступных инструкций для выполнения");
     }
 
     @Override

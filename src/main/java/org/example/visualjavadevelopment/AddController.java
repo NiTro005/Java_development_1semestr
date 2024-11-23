@@ -61,6 +61,7 @@ public class AddController {
         fxmlLoader.setController(in);
         try {
             Pane pane = fxmlLoader.load();
+            pane.setUserData(in);
             allInstructions.addColumn(0, pane);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -87,7 +88,7 @@ public class AddController {
                 break;
         }
         cpu.setInstructions(instruction);
-        Stage stage = (Stage) inst.getScene().getWindow();
-        stage.close();
+        //Stage stage = (Stage) inst.getScene().getWindow();
+        //stage.close();
     }
 }

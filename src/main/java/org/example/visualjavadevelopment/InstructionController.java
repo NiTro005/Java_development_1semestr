@@ -13,6 +13,16 @@ public class InstructionController {
 
     private Instruction instruction;
 
+    public void setColor(String color) {
+        inst.setStyle("-fx-text-fill: " + color + ";");
+        if (first_argument != null) {
+            first_argument.setStyle("-fx-text-fill: " + color + ";");
+        }
+        if (second_argument != null) {
+            second_argument.setStyle("-fx-text-fill: " + color + ";");
+        }
+    }
+
     public void setInst(Instruction instruction, String inst, String first_argument, String second_argument) {
         this.instruction = instruction;
         this.inst.setText(inst);
@@ -28,6 +38,5 @@ public class InstructionController {
     protected void deleteInstruction(){
 
     }
-
 
 }
