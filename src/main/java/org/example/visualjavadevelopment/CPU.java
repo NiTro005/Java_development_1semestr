@@ -14,6 +14,7 @@ public class CPU implements IComonCPU {
         _registers = new int[4];
         _memory = new int[1024];
     }
+    public CPU(){}
 
     public int getMemory(int address) {
         return _memory[address];

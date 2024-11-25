@@ -37,7 +37,7 @@
             </Label>
             <ScrollPane layoutX="9.0" layoutY="33.0" prefHeight="61.0" prefWidth="222.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="62.0" prefWidth="220.0">
+                <AnchorPane fx:id="pane_of_inst_cout" minHeight="0.0" minWidth="0.0" prefHeight="62.0" prefWidth="220.0">
                      <children>
                         <GridPane fx:id="mostOftenInst" prefHeight="27.0" prefWidth="98.0">
                           <columnConstraints>

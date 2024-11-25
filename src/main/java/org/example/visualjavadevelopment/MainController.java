@@ -12,18 +12,23 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainController {
     IComonCPU cpu = BCPU.build();
     int indexExec = 0;
+    CPU cur = new CPU();
 
     @FXML
     Label a, b, c, d;
 
     @FXML
     GridPane allInstructions, mostOftenInst;
+
+    @FXML
+    ScrollPane pane_of_inst_count;
 
     @FXML
     protected void addInstruction() {
@@ -49,7 +54,7 @@ public class MainController {
             cpu.exec(indexExec);
             highlightInstruction(indexExec);
             updateRegistersInfo();
-            setMostOftenInst();
+            setMostOftenInst(indexExec);
             indexExec++;
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,10 +81,13 @@ public class MainController {
         if(reg._registers[3] != 0) d.setText(String.valueOf(reg.getRegister(3)));
     }
 
-    private void setMostOftenInst() {
-        List<Command> list = cpu.InstructionsList();
-        for (Command command : list) {
-            Label label = new Label(String.valueOf(command));
+    private void setMostOftenInst(int index) {
+        mostOftenInst.getChildren().clear();
+        CPU cpu2 = (CPU)cpu;
+        cur.setInstructions(cpu2.instructions.get(index));
+        for(Command command: cur.InstructionsList()){
+            String str = String.valueOf(command);
+            Label label = new Label(str);
             mostOftenInst.addColumn(0, label);
         }
     }
