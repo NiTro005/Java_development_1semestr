@@ -62,9 +62,15 @@ public class MainController {
     }
 
     @FXML void resetProgram(){
-        highlightInstruction(indexExec, "black");
+        highlightInstruction(indexExec - 1, "black");
         indexExec = 0;
         cpu.clear();
+        a.setText("*");
+        b.setText("*");
+        c.setText("*");
+        d.setText("*");
+        mostOftenInst.getChildren().clear();
+        cur = new CPU();
     }
 
     private void highlightInstruction(int index, String color) {
