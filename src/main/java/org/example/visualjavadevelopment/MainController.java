@@ -24,7 +24,7 @@ public class MainController {
     Label a, b, c, d;
 
     @FXML
-    GridPane allInstructions, mostOftenInst;
+    GridPane allInstructions, mostOftenInst, memory_grid;
 
     @FXML
     protected void addInstruction() {
@@ -51,6 +51,7 @@ public class MainController {
             highlightInstruction(indexExec, "red");
             updateRegistersInfo();
             setMostOftenInst(indexExec);
+            setGridMemory();
             indexExec++;
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -61,7 +62,8 @@ public class MainController {
         }
     }
 
-    @FXML void resetProgram(){
+    @FXML
+    void resetProgram(){
         highlightInstruction(indexExec - 1, "black");
         indexExec = 0;
         cpu.clear();
@@ -70,7 +72,30 @@ public class MainController {
         c.setText("*");
         d.setText("*");
         mostOftenInst.getChildren().clear();
+        setGridMemory();
         cur = new CPU();
+    }
+
+    private void setGridMemory() {
+        memory_grid.getChildren().clear();
+        CPU reg = (CPU) cpu;
+
+        int row = 0;
+        int col = 0;
+        for (int i = 0; i < reg._memory.length; i++) {
+            int mem = i;
+            int val = reg.getMemory(i);
+            Label label = new Label(mem + " : " + val);
+            if (val != 0) {
+                label.setStyle("-fx-text-fill: red;");
+            }
+            memory_grid.add(label, col, row);
+            col++;
+            if (col >= 4) {
+                col = 0;
+                row++;
+            }
+        }
     }
 
     private void highlightInstruction(int index, String color) {
