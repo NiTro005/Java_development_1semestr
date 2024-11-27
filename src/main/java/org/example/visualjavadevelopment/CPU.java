@@ -40,6 +40,12 @@ public class CPU implements IComonCPU {
     }
 
     @Override
+    public  void clear(){
+        for(int i = 0; i < _registers.length; i++) _registers[i] = 0;
+        for(int i = 0; i < _memory.length; i++) _memory[i] = 0;
+    }
+
+    @Override
     public Command mostOftenInstruction() {
         return instructions.stream().collect(Collectors.groupingBy(Instruction::getCommand, Collectors.counting()))
                 .entrySet().stream().max(Map.Entry.comparingByValue())
@@ -66,5 +72,10 @@ public class CPU implements IComonCPU {
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int count_of_instruction(Command command){
+        return (int) instructions.stream().filter(instruction -> instruction.getCommand().equals(command)).count();
     }
 }

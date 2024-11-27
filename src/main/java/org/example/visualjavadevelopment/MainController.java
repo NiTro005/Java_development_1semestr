@@ -12,8 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class MainController {
@@ -26,9 +25,6 @@ public class MainController {
 
     @FXML
     GridPane allInstructions, mostOftenInst;
-
-    @FXML
-    ScrollPane pane_of_inst_count;
 
     @FXML
     protected void addInstruction() {
@@ -52,7 +48,7 @@ public class MainController {
     protected  void executeInstruction() throws Exception {
         try {
             cpu.exec(indexExec);
-            highlightInstruction(indexExec);
+            highlightInstruction(indexExec, "red");
             updateRegistersInfo();
             setMostOftenInst(indexExec);
             indexExec++;
@@ -65,12 +61,18 @@ public class MainController {
         }
     }
 
-    private void highlightInstruction(int index) {
+    @FXML void resetProgram(){
+        highlightInstruction(indexExec, "black");
+        indexExec = 0;
+        cpu.clear();
+    }
+
+    private void highlightInstruction(int index, String color) {
         InstructionController cont = null;
         if(index > 0) cont = (InstructionController) allInstructions.getChildren().get(index - 1).getUserData();
         if(cont != null) cont.setColor("black");
         cont = (InstructionController) allInstructions.getChildren().get(index).getUserData();
-        if(cont != null) cont.setColor("red");
+        if(cont != null) cont.setColor(color);
     }
 
     private void updateRegistersInfo(){
@@ -83,12 +85,25 @@ public class MainController {
 
     private void setMostOftenInst(int index) {
         mostOftenInst.getChildren().clear();
-        CPU cpu2 = (CPU)cpu;
+        CPU cpu2 = (CPU) cpu;
         cur.setInstructions(cpu2.instructions.get(index));
-        for(Command command: cur.InstructionsList()){
-            String str = String.valueOf(command);
-            Label label = new Label(str);
-            mostOftenInst.addColumn(0, label);
+
+        LinkedHashMap<Command, Integer> commandCount = new LinkedHashMap<>();
+        for (Command command : cur.InstructionsList()) {
+            commandCount.put(command, cur.count_of_instruction(command));
+        }
+
+        int row = 0;
+        for (Map.Entry<Command, Integer> entry : commandCount.entrySet()) {
+            Command command = entry.getKey();
+            Integer count = entry.getValue();
+
+            Label instructionLabel = new Label(String.valueOf(command));
+            mostOftenInst.add(instructionLabel, 0, row);
+
+            Label countLabel = new Label(String.valueOf(count));
+            mostOftenInst.add(countLabel, 1, row);
+            row++;
         }
     }
 }
