@@ -78,4 +78,23 @@ public class CPU implements IComonCPU {
     public int count_of_instruction(Command command){
         return (int) instructions.stream().filter(instruction -> instruction.getCommand().equals(command)).count();
     }
+
+    @Override
+    public void deleteInstructions(Instruction inst){
+        instructions.remove(inst);
+    }
+
+    @Override
+    public void swapInst(Instruction inst1, Instruction inst2) {
+        int index1 = instructions.indexOf(inst1);
+        int index2 = instructions.indexOf(inst2);
+
+        if (index1 == -1 || index2 == -1) {
+            throw new IllegalArgumentException("One or both instructions are not in the list.");
+        }
+
+        Instruction temp = instructions.get(index1);
+        instructions.set(index1, inst2);
+        instructions.set(index2, temp);
+    }
 }

@@ -10,5 +10,7 @@ public interface IInstructions {
     Map<Integer, Integer> AddressMemory();
     List<Command> InstructionsList();
     void setInstructions(Instruction inst);
+    void deleteInstructions(Instruction inst);
     int count_of_instruction(Command command);
+    void swapInst(Instruction inst1, Instruction inst2);
 }

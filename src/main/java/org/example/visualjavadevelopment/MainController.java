@@ -45,7 +45,7 @@ public class MainController {
     }
 
     @FXML
-    protected  void executeInstruction() throws Exception {
+    protected void executeInstruction() throws Exception {
         try {
             cpu.exec(indexExec);
             highlightInstruction(indexExec, "red");

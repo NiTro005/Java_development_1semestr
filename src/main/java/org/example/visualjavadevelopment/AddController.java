@@ -23,7 +23,7 @@ public class AddController {
     @FXML
     private TextField second;
 
-    IComonCPU cpu = BCPU.build();
+    IComonCPU cpu;
     public  void setCpu(IComonCPU cpu){this.cpu = cpu;}
 
     public void setAllInstructions(GridPane allInstructions) {
@@ -58,6 +58,8 @@ public class AddController {
             return;
         }
         FXMLLoader fxmlLoader = new FXMLLoader(InstructionController.class.getResource("instruction.fxml"));
+        in.setCpu(cpu);
+        in.setGrid(allInstructions);
         fxmlLoader.setController(in);
         try {
             Pane pane = fxmlLoader.load();
@@ -87,7 +89,6 @@ public class AddController {
                 in.setInst(instruction, s, first.getText(), second.getText());
                 break;
         }
-        cpu.setInstructions(instruction);
         //Stage stage = (Stage) inst.getScene().getWindow();
         //stage.close();
     }
